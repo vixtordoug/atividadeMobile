@@ -10,7 +10,7 @@ class App extends Component {
             <Router>
                 <Stack key={login} hideNavBar>
                     <Scene key="login" component={login} title="Login" />
-                    <Scene key="inicio" component={home} title="Home" />
+                    <Scene key="home" component={home} title="Home" />
                     <Scene key="cadastro" component={cadastro} title="Cadastro" />
                     <Scene key="lista" component={lista} title="Lista" />
                 </Stack>

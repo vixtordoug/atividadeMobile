@@ -82,9 +82,9 @@ export default class Db {
                 db.transaction((tx) => {
                     tx.executeSql('UPDATE usuario SET nome = ? senha = ? WHERE id = ?',
                         [
-                            cliente.nome_usuario,
-                            cliente.senha_usuario,
-                            cliente.id_usuario
+                            usuario.nome_usuario,
+                            usuario.senha_usuario,
+                            usuario.id_usuario
                         ], (tx, results) => {
                             if (results.rowsAffected > 0) {
                                 Alert.alert('Alteração', 'Dados alterado com Sucesso');
@@ -110,7 +110,7 @@ export default class Db {
                 db.transaction((tx) => {
                     tx.executeSql('DELETE FROM usuario WHERE id = ?',
                         [
-                            cliente.id_usuario
+                            usuario.id_usuario
                         ], (tx, results) => {
                             if (results.rowsAffected > 0) {
                                 Alert.alert('Exclusão', 'Usuário excluído com Sucesso');
