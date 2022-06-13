@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Button, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-class Home extends Component {
+class Inicio extends Component {
     render() {
         return (
             <View style={styles.container}>
@@ -31,4 +31,4 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     }
 });
-export default Home;
+export default Inicio;

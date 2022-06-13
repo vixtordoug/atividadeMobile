@@ -1,17 +1,12 @@
 import SQLite from 'react-native-sqlite-storage';
-
 SQLite.DEBUG(true);
 SQLite.enablePromise(true);
-
-const database_name = 'atividade.db';
+const database_name = 'Empresa.db';
 const database_version = '1.0';
 const database_displayname = 'SQLite React Offline Database';
 const database_size = 200000;
-
 export default class Db {
-    //aqui teremos os métodos
 
-    //Inicialização/ Criação do Banco de Dados
     initDb() {
         let db;
         SQLite.openDatabase(
@@ -24,14 +19,14 @@ export default class Db {
                 db = DB;
                 db.transaction(function (tx) {
                     tx.executeSql(
-                        "SELECT name FROM sqlite_master WHERE type='table' AND name='usuario'",
+                        "SELECT name FROM sqlite_master WHERE type='table' AND name='cliente'",
                         [],
                         function (tx, result) {
-                            console.log('intem', result.rows.length);
+                            console.log('item:', result.rows.length);
                             if (result.rows.length == 0) {
-                                tx.executeSql('DROP TABLE IF EXISTS usuario', []);
+                                tx.executeSql('DROP TABLE IF EXISTS cliente', []);
                                 tx.executeSql(
-                                    'CREATE TABLE IS NOT EXISTS usuario(id INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR(20), senha VARCHAR(8))',
+                                    'CREATE TABLE IF NOT EXISTS cliente(id INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR(20), senha VARCHAR(8))',
                                     []
                                 );
                             }
@@ -39,11 +34,9 @@ export default class Db {
                     );
                 });
             })
-
     }
 
-    //Alimentação da Tabela de Usuários com seus dados
-    addUsuario(usuario) {
+    addCliente(cliente) {
         let db;
         SQLite.openDatabase(
             database_name,
@@ -54,22 +47,19 @@ export default class Db {
             .then(DB => {
                 db = DB;
                 db.transaction((tx) => {
-                    tx.executeSql('INSERT INTO usuario (nome, senha) VALUES (?,?)',
-                        [usuario.nome_usuario, usuario.senha_usuario], (tx, results) => {
+                    tx.executeSql('INSERT INTO cliente (nome, senha) VALUES (?,?)',
+                        [cliente.nome_cliente, cliente.senha_cliente], (tx, results) => {
                             if (results.rowsAffected > 0) {
-                                Alert.alert('Cadastro', 'Resgistro Inserido com sucesso');
+                                Alert.alert('Cadastro', 'Registro Inserido com Sucesso');
                             } else {
                                 Alert.alert('Erro no Cadastro');
                             }
-                        }
-                    );
+                        });
                 })
             })
-
     }
 
-    //Alterar informações dos usuários
-    updateUsuario(usuario) {
+    updateCliente(cliente) {
         let db;
         SQLite.openDatabase(
             database_name,
@@ -80,11 +70,11 @@ export default class Db {
             .then(DB => {
                 db = DB;
                 db.transaction((tx) => {
-                    tx.executeSql('UPDATE usuario SET nome = ? senha = ? WHERE id = ?',
+                    tx.executeSql('UPDATE cliente SET nome = ? senha = ? WHERE id = ?',
                         [
-                            usuario.nome_usuario,
-                            usuario.senha_usuario,
-                            usuario.id_usuario
+                            cliente.nome_cliente,
+                            cliente.senha_cliente,
+                            cliente.id_cliente
                         ], (tx, results) => {
                             if (results.rowsAffected > 0) {
                                 Alert.alert('Alteração', 'Dados alterado com Sucesso');
@@ -96,8 +86,7 @@ export default class Db {
             })
     }
 
-    //excluir um usuário
-    deleteUsuario(usuario) {
+    deletarCliente(cliente) {
         let db;
         SQLite.openDatabase(
             database_name,
@@ -108,12 +97,12 @@ export default class Db {
             .then(DB => {
                 db = DB;
                 db.transaction((tx) => {
-                    tx.executeSql('DELETE FROM usuario WHERE id = ?',
+                    tx.executeSql('DELETE FROM cliente WHERE id = ?',
                         [
-                            usuario.id_usuario
+                            cliente.id_cliente
                         ], (tx, results) => {
                             if (results.rowsAffected > 0) {
-                                Alert.alert('Exclusão', 'Usuário excluído com Sucesso');
+                                Alert.alert('Exclusão', 'Cliente excluído com Sucesso');
                             } else {
                                 Alert.alert('Exclusão', 'Erro na exclusão');
                             }
@@ -121,5 +110,4 @@ export default class Db {
                 })
             })
     }
-
 }

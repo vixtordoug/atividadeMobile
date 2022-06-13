@@ -4,8 +4,8 @@ import { Actions } from 'react-native-router-flux';
 import { TextInput } from 'react-native-gesture-handler';
 const entrar = (user, senha) => {
     if (user == 'admin' && senha == '') {
-        Actions.pop({ login });
-        Actions.home({ senha: senha, user: user });
+        Actions.pop({ Login });
+        Actions.inicio({ senha: senha, user: user });
     } else {
         Alert.alert('Atenção!', 'Usuário e/ou senha incorretos');
     }

@@ -18,7 +18,7 @@ export default class Lista extends Component {
             .then(DB => {
                 db = DB;
                 db.transaction(tx => {
-                    tx.executeSql('SELECT * FROM usuario ORDER BY nome', [], (tx, results) => {
+                    tx.executeSql('SELECT * FROM cliente ORDER BY nome', [], (tx, results) => {
                         var temp = [];
                         for (let i = 0; i < results.rows.length; ++i) {
                             temp.push(results.rows.item(i));
@@ -39,7 +39,7 @@ export default class Lista extends Component {
         return (
             <View>
                 <View style={styles.container}>
-                    <Text style={styles.textoCab}>Lista dos Usuarios</Text>
+                    <Text style={styles.textoCab}>Lista dos Clientes</Text>
                 </View>
                 <FlatList
                     data={this.state.FlatListItems}
